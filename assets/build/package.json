@@ -1,0 +1,16 @@
+{
+  "name": "appo-gulp",
+  "version": "1.0.0",
+  "description": "Gulp builder for Appo apps",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Milan van As",
+  "license": "ISC",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-plumber": "^1.1.0",
+    "require-dir": "^0.3.1"
+  }
+}
