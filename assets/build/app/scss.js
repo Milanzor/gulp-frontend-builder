@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var config = require('../tools/config');
 var plumber = require('gulp-plumber');
+
 module.exports = (function () {
 
     // Initialize self
