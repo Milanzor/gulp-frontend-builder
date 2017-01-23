@@ -1,6 +1,9 @@
 {
     "scss": {
-        "path": "../scss/**/*.scss"
-    }
+        "source": "../scss/**/*.scss",
+        "target": "../../private_html/css/",
+        "style": "compressed"
+    },
+    "debug": true
 }
 
