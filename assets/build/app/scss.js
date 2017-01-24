@@ -19,7 +19,7 @@ module.exports = (function () {
         });
     };
 
-    scss.process = function (e) {
+    scss.process = function () {
 
         return gulp.src(config.get('scss.source'))
             .pipe(plugins.plumber())

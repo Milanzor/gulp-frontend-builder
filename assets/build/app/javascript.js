@@ -74,13 +74,14 @@ var lib = (function () {
 
 
 /**
- * bower components
+ * vendors components
  */
 var vendors = (function () {
     var vendors = {};
 
     vendors.watch = function () {
-        return gulp.watch(config.get('js.vendors.bower'), {}, function (e) {
+        var watchPath = config.get('js.vendors.bower').concat(config.get('manual-vendor-installation-path'));
+        return gulp.watch(watchPath, {}, function (e) {
             if (config.get('debug', false)) {
                 plugins.gutil.log('Js lib watcher triggered by event \'' + plugins.gutil.colors.magenta(e.type) + '\' on \'' + plugins.gutil.colors.magenta(e.path) + '\'');
             }
@@ -89,10 +90,9 @@ var vendors = (function () {
     };
 
     vendors.process = function () {
-        var vendor_files = util.getBowerFiles(config.get('bower', []));
+        var vendor_files = util.getVendorFiles(config.get('bower'), config.get('manual-vendor-installation-path'), '**/*.js');
         return gulp.src(vendor_files)
             .pipe(plugins.plumber())
-            .pipe(plugins.gulpIgnore.include('*.js'))
             .pipe(plugins.using())
             .pipe(plugins.order(config.get('js.vendors.order')))
             .pipe(uglify())

@@ -24,18 +24,18 @@ module.exports = (function () {
     };
 
 
-    self.getBowerFiles = function (bowerPaths) {
+    self.getVendorFiles = function (bowerPaths, manual_path, filter) {
+        filter = filter || '**/**';
         var mainBowerFiles = require('main-bower-files');
         var files = [];
         if (bowerPaths.length) {
             bowerPaths.forEach(function (bower) {
-                mainBowerFiles({
+                files = files.concat(mainBowerFiles(filter, {
                     paths: bower
-                }).forEach(function (f) {
-                    files.push(f);
-                });
+                }));
             });
         }
+        files = files.concat(manual_path || []);
         return files;
     };
 

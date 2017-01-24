@@ -20,10 +20,9 @@ module.exports = (function () {
     };
 
     fonts.process = function () {
-        var vendor_files = util.getBowerFiles(config.get('bower', []));
+        var vendor_files = util.getVendorFiles(config.get('bower', []), config.get('manual-vendor-installation-path'), ['**/*.svg', '**/*.eot', '**/*.ttf', '**/*.woff', '**/*.woff2']);
         return gulp.src(vendor_files)
             .pipe(plugins.plumber())
-            .pipe(plugins.gulpIgnore.include(['*.svg', '*.eot', '*.ttf', '*.woff', '*.woff2']))
             .pipe(plugins.using())
             .pipe(gulp.dest(config.get('fonts.target')));
     };
