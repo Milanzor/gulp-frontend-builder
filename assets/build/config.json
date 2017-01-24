@@ -37,7 +37,7 @@
         "../../cakephp/app/Plugin/Appo/Assets/",
         "../"
     ],
-    "manual-vendor-installation-path": ["../vendors/manual/**/*.js"],
+    "manual-vendor-installation-path": ["../vendors/manual/**/*.*"],
     "fonts": {
         "target": "../../private_html/fonts/"
     },
