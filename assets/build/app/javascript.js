@@ -80,7 +80,7 @@ var vendors = (function () {
     var vendors = {};
 
     vendors.watch = function () {
-        var watchPath = config.get('js.vendors.bower').concat(config.get('manual-vendor-installation-path'));
+        var watchPath = config.get('bower').concat(config.get('manual-vendor-installation-path'));
         return gulp.watch(watchPath, {}, function (e) {
             if (config.get('debug', false)) {
                 plugins.gutil.log('Js lib watcher triggered by event \'' + plugins.gutil.colors.magenta(e.type) + '\' on \'' + plugins.gutil.colors.magenta(e.path) + '\'');

@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "gulp": "^3.9.1",
+    "gulp-bless": "^3.2.1",
     "gulp-concat": "^2.6.1",
     "gulp-ignore": "^2.0.2",
     "gulp-order": "^1.1.1",
