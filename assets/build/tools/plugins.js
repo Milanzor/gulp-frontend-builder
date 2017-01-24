@@ -1,16 +1,11 @@
-var plumber = require('gulp-plumber');
-var gutil = require('gulp-util');
-var using = gutil.noop;
 var config = require('./config');
-var rename = require('gulp-rename');
-
-if (config.get('debug') === true) {
-    using = require('gulp-using');
-}
 
 module.exports = {
-    plumber: plumber,
-    using: using,
-    gutil: gutil,
-    rename: rename
+    plumber: require('gulp-plumber'),
+    using: (config.get('debug') === true) ? require('gulp-using') : require('gulp-util').noop,
+    gutil: require('gulp-util'),
+    rename: require('gulp-rename'),
+    concat: require('gulp-concat'),
+    order: require('gulp-order'),
+    gulpIgnore: require('gulp-ignore')
 };

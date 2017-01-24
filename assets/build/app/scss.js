@@ -6,19 +6,20 @@ var sourcemaps = require('gulp-sourcemaps');
 
 module.exports = (function () {
 
-    // Initialize self
-    var self = {};
+    // Initialize scss
+    var scss = {};
 
     // Watch task
-    self.watch = function () {
-        return gulp.watch(config.get('scss.source'), {}, self.process);
+    scss.watch = function () {
+        return gulp.watch(config.get('scss.source'), {}, function (e) {
+            if (config.get('debug', false)) {
+                plugins.gutil.log('Scss watcher triggered by event \'' + plugins.gutil.colors.magenta(e.type) + '\' on \'' + plugins.gutil.colors.magenta(e.path) + '\'');
+            }
+            scss.process();
+        });
     };
 
-    self.process = function (e) {
-
-        if (config.get('debug', false)) {
-            plugins.gutil.log('Scss watcher triggered by event \'' + plugins.gutil.colors.magenta(e.type) + '\' on \'' + plugins.gutil.colors.magenta(e.path) + '\'');
-        }
+    scss.process = function (e) {
 
         return gulp.src(config.get('scss.source'))
             .pipe(plugins.plumber())
@@ -37,5 +38,6 @@ module.exports = (function () {
     };
 
     // Gulp tasks
-    gulp.task('scss:watch', self.watch);
+    gulp.task('scss:watch', scss.watch);
+    gulp.task('scss:process', scss.process);
 })();

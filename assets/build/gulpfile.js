@@ -5,4 +5,15 @@
 var gulp = require('gulp');
 var app = require('require-dir')('./app');
 
-gulp.task('default', ['scss:watch']);
+var tasks = [
+    'scss:watch',
+    'scss:process',
+    'js:app:process',
+    'js:app:watch',
+    'js:vendors:process',
+    'js:vendors:watch',
+    'js:lib:process',
+    'js:lib:watch'
+];
+
+gulp.task('default', tasks);

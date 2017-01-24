@@ -23,5 +23,21 @@ module.exports = (function () {
         return false;
     };
 
+
+    self.getBowerFiles = function (bowerPaths) {
+        var mainBowerFiles = require('main-bower-files');
+        var files = [];
+        if (bowerPaths.length) {
+            bowerPaths.forEach(function (bower) {
+                mainBowerFiles({
+                    paths: bower
+                }).forEach(function (f) {
+                    files.push(f);
+                });
+            });
+        }
+        return files;
+    };
+
     return self;
 })();

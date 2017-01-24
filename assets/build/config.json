@@ -1,8 +1,44 @@
 {
     "scss": {
-        "source": "../scss/**/*.scss",
+        "source": [
+            "../scss/**/*.scss",
+            "../../cakephp/app/Plugin/Appo/Assets/scss/**/*.scss"
+        ],
         "target": "../../private_html/css/",
         "style": "compressed"
+    },
+    "js": {
+        "app": {
+            "source": [
+                "../js/app/**/*.js"
+            ],
+            "target": "../../private_html/js/app/"
+        },
+        "vendors": {
+            "order": [
+                "jquery.js",
+                "*"
+            ],
+            "target": "../../private_html/js/"
+        },
+        "lib": {
+            "source": [
+                "../js/lib/**/*.js",
+                "../../cakephp/app/Plugin/Appo/Assets/js/lib/**/*.js"
+            ],
+            "order": [
+                "Lib.js",
+                "*"
+            ],
+            "target": "../../private_html/js/"
+        }
+    },
+    "bower": [
+        "../../cakephp/app/Plugin/Appo/Assets/",
+        "../"
+    ],
+    "fonts": {
+        "target": "../../private_html/fonts/"
     },
     "debug": true
 }

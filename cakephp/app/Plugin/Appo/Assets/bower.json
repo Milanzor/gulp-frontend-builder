@@ -1,0 +1,21 @@
+{
+  "name": "appo-plugin-components",
+  "authors": [
+    "Milan <milanvanas@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "material-design-iconic-font": "^2.2.0"
+  }
+}
