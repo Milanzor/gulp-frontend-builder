@@ -10,7 +10,7 @@ module.exports = (function () {
     var fonts = {};
 
     fonts.process = function () {
-        var vendor_files = util.getVendorFiles(config.get('bower', []), config.get('manual-vendor-installation-path'), ['**/*.svg', '**/*.eot', '**/*.ttf', '**/*.woff', '**/*.woff2']);
+        var vendor_files = util.getVendorFiles(config.get('bower', []), config.get('fonts.manual-vendor-installation-path'), ['**/*.svg', '**/*.eot', '**/*.ttf', '**/*.woff', '**/*.woff2']);
         return gulp.src(vendor_files)
             .pipe(plugins.plumber())
             .pipe(plugins.using())

@@ -21,6 +21,7 @@
             ],
             "target": "../../private_html/js/"
         },
+        "manual-vendor-installation-path": ["../vendors/manual/**/*.js"],
         "lib": {
             "source": [
                 "../js/lib/**/*.js",
@@ -37,8 +38,8 @@
         "../../cakephp/app/Plugin/Appo/Assets/",
         "../"
     ],
-    "manual-vendor-installation-path": ["../vendors/manual/**/*.*"],
     "fonts": {
+        "manual-vendor-installation-path": ["../vendors/manual/**/*.{svg,eot,ttf,woff,woff2}"],
         "target": "../../private_html/fonts/"
     },
     "debug": true

@@ -84,17 +84,17 @@ var vendors = (function () {
         config.get('bower').forEach(function (bowerpath) {
             watchPath.push(bowerpath + 'bower.json');
         });
-        watchPath = watchPath.concat(config.get("manual-vendor-installation-path", []));
+        watchPath = watchPath.concat(config.get('js.manual-vendor-installation-path', []));
         return gulp.watch(watchPath, {}, function (e) {
             if (config.get('debug', false)) {
-                plugins.gutil.log('Js lib watcher triggered by event \'' + plugins.gutil.colors.magenta(e.type) + '\' on \'' + plugins.gutil.colors.magenta(e.path) + '\'');
+                plugins.gutil.log('Js vendors watcher triggered by event \'' + plugins.gutil.colors.magenta(e.type) + '\' on \'' + plugins.gutil.colors.magenta(e.path) + '\'');
             }
             vendors.process();
         });
     };
 
     vendors.process = function () {
-        var vendor_files = util.getVendorFiles(config.get('bower'), config.get('manual-vendor-installation-path'), '**/*.js');
+        var vendor_files = util.getVendorFiles(config.get('bower'), config.get('js.manual-vendor-installation-path'), '**/*.js');
         return gulp.src(vendor_files)
             .pipe(plugins.plumber())
             .pipe(plugins.using())

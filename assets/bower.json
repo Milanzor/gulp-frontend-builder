@@ -1,29 +1,25 @@
 {
-    "name": "project-components",
-    "authors": [
-        "Milan <milanvanas@gmail.com>"
-    ],
-    "description": "",
-    "main": "",
-    "license": "MIT",
-    "homepage": "",
-    "ignore": [
-        "**/.*",
-        "node_modules",
-        "bower_components",
-        "test",
-        "tests"
-    ],
-    "dependencies": {
-        "font-awesome": "^4.7.0",
-        "jquery-ui": "^1.12.1",
-        "glyphicons": "^0.0.2"
-    },
-    "overrides": {
-        "glyphicons": {
-            "main": [
-                "fonts/*"
-            ]
-        }
+  "name": "project-components",
+  "authors": [
+    "Milan <milanvanas@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {},
+  "overrides": {
+    "glyphicons": {
+      "main": [
+        "fonts/*"
+      ]
     }
+  }
 }

@@ -1,12 +1,6 @@
 /**
  * Appo Gulp file
  * Does everything you need for Appo assets
- *
- *
- * Todo:
- * Fix the watch tasks, make them watch the right files, currently they only watch the bower.jsons
- *
- *
  */
 var gulp = require('gulp');
 var app = require('require-dir')('./app');
