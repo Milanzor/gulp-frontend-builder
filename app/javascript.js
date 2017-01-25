@@ -17,7 +17,10 @@ var app = (function () {
                 plugins.gutil.log('Js app watcher triggered by event \'' + plugins.gutil.colors.magenta(e.type) + '\' on \'' + plugins.gutil.colors.magenta(e.path) + '\'');
             }
 
-            app.process();
+            plugins.debounce(function(){
+                app.process();
+            }, 1000);
+
         });
     };
 
@@ -51,7 +54,9 @@ var lib = (function () {
             if (config.get('debug', false)) {
                 plugins.gutil.log('Js lib watcher triggered by event \'' + plugins.gutil.colors.magenta(e.type) + '\' on \'' + plugins.gutil.colors.magenta(e.path) + '\'');
             }
-            lib.process();
+            plugins.debounce(function(){
+                lib.process();
+            }, 1000);
         });
     };
 
@@ -89,7 +94,10 @@ var vendors = (function () {
             if (config.get('debug', false)) {
                 plugins.gutil.log('Js vendors watcher triggered by event \'' + plugins.gutil.colors.magenta(e.type) + '\' on \'' + plugins.gutil.colors.magenta(e.path) + '\'');
             }
-            vendors.process();
+
+            plugins.debounce(function(){
+                vendors.process();
+            }, 1000);
         });
     };
 

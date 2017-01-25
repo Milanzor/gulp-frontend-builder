@@ -16,12 +16,14 @@ module.exports = (function () {
             if (config.get('debug', false)) {
                 plugins.gutil.log('Scss watcher triggered by event \'' + plugins.gutil.colors.magenta(e.type) + '\' on \'' + plugins.gutil.colors.magenta(e.path) + '\'');
             }
-            scss.process();
+            plugins.debounce(function(){
+                scss.process();
+            }, 1000);
         });
     };
 
     scss.process = function () {
-
+        console.log('running this');
         return gulp.src(config.get('scss.source'))
             .pipe(plugins.plumber())
             .pipe(plugins.using())

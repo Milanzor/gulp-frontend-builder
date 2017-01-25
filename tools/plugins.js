@@ -7,5 +7,12 @@ module.exports = {
     rename: require('gulp-rename'),
     concat: require('gulp-concat'),
     order: require('gulp-order'),
-    gulpIgnore: require('gulp-ignore')
+    gulpIgnore: require('gulp-ignore'),
+    debounce: (function () {
+        var timer = 0;
+        return function (callback, ms) {
+            clearTimeout(timer);
+            timer = setTimeout(callback, ms);
+        };
+    })()
 };
