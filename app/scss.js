@@ -2,9 +2,6 @@ var gulp = require('gulp');
 var config = require('../tools/config');
 var plugins = require('../tools/plugins');
 var sass = require('gulp-sass');
-var bless = require('gulp-bless');
-var sourcemaps = require('gulp-sourcemaps');
-var cleanCSS = require('gulp-clean-css');
 
 module.exports = (function () {
 
@@ -24,6 +21,7 @@ module.exports = (function () {
     };
 
     scss.process = function () {
+        var sourcemaps = require('gulp-sourcemaps');
         return gulp.src(config.get('scss.source'))
             .pipe(plugins.plumber())
             .pipe(plugins.using())
@@ -40,10 +38,10 @@ module.exports = (function () {
             .pipe(gulp.dest(config.get('scss.target')));
     };
 
-    var compiledTargets = [config.get('scss.target') + '**/*.css', '!' + config.get('scss.target') + 'ie9/**/*.css', '!' + config.get('scss.target') + 'clean/**/*.css'];
+    var blessTargets = [config.get('scss.target') + '**/*.css', '!' + config.get('scss.target') + 'ie9/**/*.css'];
 
     scss.watchbless = function () {
-        return gulp.watch(compiledTargets, {}, function (e) {
+        return gulp.watch(blessTargets, {}, function (e) {
             if (config.get('debug', false)) {
                 plugins.gutil.log('Scss bless watcher triggered by event \'' + plugins.gutil.colors.magenta(e.type) + '\' on \'' + plugins.gutil.colors.magenta(e.path) + '\'');
             }
@@ -52,7 +50,8 @@ module.exports = (function () {
     };
 
     scss.processbless = function () {
-        return gulp.src(compiledTargets)
+        var bless = require('gulp-bless');
+        return gulp.src(blessTargets)
             .pipe(plugins.plumber())
             .pipe(plugins.using())
             .pipe(bless())
@@ -61,11 +60,14 @@ module.exports = (function () {
     };
 
     scss.clean = function(){
-        return gulp.src(compiledTargets)
+        var insert = require('gulp-insert');
+        var cleanCSS = require('gulp-clean-css');
+        return gulp.src(config.get('scss.target') + '**/*.css')
             .pipe(plugins.plumber())
             .pipe(plugins.using())
             .pipe(cleanCSS({inline: ['remote']}))
-            .pipe(gulp.dest(config.get('scss.target') + 'clean/'));
+            .pipe(insert.append('/* cleaned */'))
+            .pipe(gulp.dest(config.get('scss.target')));
     };
 
     // Gulp tasks
