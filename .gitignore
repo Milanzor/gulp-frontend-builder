@@ -3,3 +3,4 @@ node_modules
 private_html
 bower_components
 config.json
+testdata

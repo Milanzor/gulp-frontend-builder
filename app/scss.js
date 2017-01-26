@@ -4,6 +4,7 @@ var plugins = require('../tools/plugins');
 var sass = require('gulp-sass');
 var bless = require('gulp-bless');
 var sourcemaps = require('gulp-sourcemaps');
+var cleanCSS = require('gulp-clean-css');
 
 module.exports = (function () {
 
@@ -16,23 +17,22 @@ module.exports = (function () {
             if (config.get('debug', false)) {
                 plugins.gutil.log('Scss watcher triggered by event \'' + plugins.gutil.colors.magenta(e.type) + '\' on \'' + plugins.gutil.colors.magenta(e.path) + '\'');
             }
-            plugins.debounce(function(){
+            plugins.debounce(function () {
                 scss.process();
             }, 1000);
         });
     };
 
     scss.process = function () {
-        console.log('running this');
         return gulp.src(config.get('scss.source'))
             .pipe(plugins.plumber())
             .pipe(plugins.using())
             .pipe(sourcemaps.init({largeFile: true}))
             .pipe(sass({outputStyle: config.get('scss.style', 'compressed')}))
             .pipe(plugins.rename(function (path) {
-                path.extname = ".min.css"
+                path.extname = ".min.css";
             }))
-            .pipe(sourcemaps.write(config.get('scss.target') + 'maps/', {
+            .pipe(sourcemaps.write('maps/', {
                 sourceMappingURL: function (file) {
                     return 'maps/' + file.relative + '.map';
                 }
@@ -40,10 +40,10 @@ module.exports = (function () {
             .pipe(gulp.dest(config.get('scss.target')));
     };
 
-    var blessTargets = [config.get('scss.target') + '**/*.css', '!' + config.get('scss.target') + 'ie9/**/*.css'];
+    var compiledTargets = [config.get('scss.target') + '**/*.css', '!' + config.get('scss.target') + 'ie9/**/*.css', '!' + config.get('scss.target') + 'clean/**/*.css'];
 
     scss.watchbless = function () {
-        return gulp.watch(blessTargets, {}, function (e) {
+        return gulp.watch(compiledTargets, {}, function (e) {
             if (config.get('debug', false)) {
                 plugins.gutil.log('Scss bless watcher triggered by event \'' + plugins.gutil.colors.magenta(e.type) + '\' on \'' + plugins.gutil.colors.magenta(e.path) + '\'');
             }
@@ -52,12 +52,20 @@ module.exports = (function () {
     };
 
     scss.processbless = function () {
-        return gulp.src(blessTargets)
+        return gulp.src(compiledTargets)
             .pipe(plugins.plumber())
             .pipe(plugins.using())
             .pipe(bless())
             .pipe(sass({outputStyle: config.get('scss.style', 'compressed')}))
             .pipe(gulp.dest(config.get('scss.target') + 'ie9/'));
+    };
+
+    scss.clean = function(){
+        return gulp.src(compiledTargets)
+            .pipe(plugins.plumber())
+            .pipe(plugins.using())
+            .pipe(cleanCSS({inline: ['remote']}))
+            .pipe(gulp.dest(config.get('scss.target') + 'clean/'));
     };
 
     // Gulp tasks
@@ -66,4 +74,6 @@ module.exports = (function () {
 
     gulp.task('scss:bless:watch', scss.watchbless);
     gulp.task('scss:bless:process', scss.processbless);
+
+    gulp.task('scss:clean', scss.clean);
 })();
