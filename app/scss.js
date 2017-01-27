@@ -62,7 +62,7 @@ module.exports = (function () {
     scss.clean = function(){
         var insert = require('gulp-insert');
         var cleanCSS = require('gulp-clean-css');
-        return gulp.src(config.get('scss.target') + '**/*.css')
+        return gulp.src([config.get('scss.target') + '**/*.css', '!' + config.get('scss.target') + 'ie9/**/*.css'])
             .pipe(plugins.plumber())
             .pipe(plugins.using())
             .pipe(cleanCSS({inline: ['remote']}))

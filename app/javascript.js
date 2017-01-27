@@ -17,7 +17,7 @@ var app = (function () {
                 plugins.gutil.log('Js app watcher triggered by event \'' + plugins.gutil.colors.magenta(e.type) + '\' on \'' + plugins.gutil.colors.magenta(e.path) + '\'');
             }
 
-            plugins.debounce(function(){
+            plugins.debounce(function () {
                 app.process();
             }, 1000);
 
@@ -49,25 +49,29 @@ var app = (function () {
 var lib = (function () {
     var lib = {};
 
+    var running = false;
+
     lib.watch = function () {
         gulp.watch(config.get('js.lib.source'), {}, function (e) {
             if (config.get('debug', false)) {
                 plugins.gutil.log('Js lib watcher triggered by event \'' + plugins.gutil.colors.magenta(e.type) + '\' on \'' + plugins.gutil.colors.magenta(e.path) + '\'');
             }
-            plugins.debounce(function(){
+            plugins.debounce(function () {
                 lib.process();
             }, 1000);
         });
     };
 
     lib.process = function () {
-        return gulp.src(config.get('js.lib.source'))
-            .pipe(plugins.plumber())
-            .pipe(plugins.order(config.get('js.lib.order')))
-            .pipe(plugins.using())
-            .pipe(uglify())
-            .pipe(plugins.concat('lib.min.js'))
-            .pipe(gulp.dest(config.get('js.lib.target')));
+        if (running === false) {
+            return gulp.src(config.get('js.lib.source'))
+                .pipe(plugins.plumber())
+                .pipe(plugins.order(config.get('js.lib.order')))
+                .pipe(plugins.using())
+                .pipe(uglify())
+                .pipe(plugins.concat('lib.min.js'))
+                .pipe(gulp.dest(config.get('js.lib.target')));
+        }
     };
 
     // Gulp tasks
@@ -95,7 +99,7 @@ var vendors = (function () {
                 plugins.gutil.log('Js vendors watcher triggered by event \'' + plugins.gutil.colors.magenta(e.type) + '\' on \'' + plugins.gutil.colors.magenta(e.path) + '\'');
             }
 
-            plugins.debounce(function(){
+            plugins.debounce(function () {
                 vendors.process();
             }, 1000);
         });
