@@ -3,7 +3,6 @@ var config = require('../tools/config');
 var plugins = require('../tools/plugins');
 var uglify = require('gulp-uglify');
 var util = require('../tools/util');
-
 /**
  * app processing
  */
@@ -27,6 +26,10 @@ var app = (function () {
     app.process = function () {
         return gulp.src(config.get('js.app.source'))
             .pipe(plugins.plumber())
+            .pipe(plugins.newer({
+                dest: config.get('js.app.target'),
+                ext: '.min.js'
+            }))
             .pipe(plugins.using())
             .pipe(uglify())
             .pipe(plugins.rename(function (path) {

@@ -8,6 +8,7 @@ module.exports = {
     concat: require('gulp-concat'),
     order: require('gulp-order'),
     gulpIgnore: require('gulp-ignore'),
+    newer: require('gulp-newer'),
     debounce: (function () {
         var timer = 0;
         return function (callback, ms) {
