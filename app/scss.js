@@ -22,6 +22,7 @@ module.exports = (function () {
 
     scss.process = function () {
         var sourcemaps = require('gulp-sourcemaps');
+        var autoprefixer = require('gulp-autoprefixer');
         return gulp.src(config.get('scss.source'))
             .pipe(plugins.plumber())
             .pipe(plugins.using())

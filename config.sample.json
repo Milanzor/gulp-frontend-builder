@@ -1,4 +1,9 @@
 {
+    "images": {
+        "source": [
+            "../../private_html/img/**/*.*"
+        ]
+    },
     "scss": {
         "source": [
             "../scss/**/*.scss",
@@ -21,7 +26,9 @@
             ],
             "target": "../../private_html/js/"
         },
-        "manual-vendor-installation-path": ["../vendors/manual/**/*.js"],
+        "manual-vendor-installation-path": [
+            "../vendors/manual/**/*.js"
+        ],
         "lib": {
             "source": [
                 "../js/lib/**/*.js",
@@ -39,7 +46,9 @@
         "../"
     ],
     "fonts": {
-        "manual-vendor-installation-path": ["../vendors/manual/**/*.{svg,eot,ttf,woff,woff2}"],
+        "manual-vendor-installation-path": [
+            "../vendors/manual/**/*.{svg,eot,ttf,woff,woff2}"
+        ],
         "target": "../../private_html/fonts/"
     },
     "debug": true
