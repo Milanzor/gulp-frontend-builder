@@ -21,20 +21,13 @@ module.exports = (function () {
     };
 
     scss.process = function () {
-        var sourcemaps = require('gulp-sourcemaps');
         var autoprefixer = require('gulp-autoprefixer');
         return gulp.src(config.get('scss.source'))
             .pipe(plugins.plumber())
             .pipe(plugins.using())
-            .pipe(sourcemaps.init({largeFile: true}))
             .pipe(sass({outputStyle: config.get('scss.style', 'compressed')}))
             .pipe(plugins.rename(function (path) {
                 path.extname = ".min.css";
-            }))
-            .pipe(sourcemaps.write('maps/', {
-                sourceMappingURL: function (file) {
-                    return 'maps/' + file.relative + '.map';
-                }
             }))
             .pipe(gulp.dest(config.get('scss.target')));
     };

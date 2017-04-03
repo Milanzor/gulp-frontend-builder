@@ -1,7 +1,6 @@
 var gulp = require('gulp');
 var config = require('../tools/config');
 var plugins = require('../tools/plugins');
-var sourcemaps = require('gulp-sourcemaps');
 var util = require('../tools/util');
 
 module.exports = (function () {
