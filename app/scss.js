@@ -34,15 +34,6 @@ module.exports = (function () {
 
     var blessTargets = [config.get('scss.target') + '**/*.css', '!' + config.get('scss.target') + 'ie9/**/*.css'];
 
-    scss.watchbless = function () {
-        return gulp.watch(blessTargets, {}, function (e) {
-            if (config.get('debug', false)) {
-                plugins.gutil.log('Scss bless watcher triggered by event \'' + plugins.gutil.colors.magenta(e.type) + '\' on \'' + plugins.gutil.colors.magenta(e.path) + '\'');
-            }
-            scss.processbless();
-        });
-    };
-
     scss.processbless = function () {
         var bless = require('gulp-bless');
         return gulp.src(blessTargets)
@@ -68,8 +59,7 @@ module.exports = (function () {
     gulp.task('scss:watch', scss.watch);
     gulp.task('scss:process', scss.process);
 
-    gulp.task('scss:bless:watch', scss.watchbless);
-    gulp.task('scss:bless:process', scss.processbless);
+    gulp.task('scss:bless', scss.processbless);
 
     gulp.task('scss:clean', scss.clean);
 })();

@@ -7,12 +7,8 @@ var app = require('require-dir')('./app');
 
 var tasks = [
     'scss:watch',
-    'scss:process',
-    'js:app:process',
     'js:app:watch',
-    'js:vendors:process',
     'js:vendors:watch',
-    'js:lib:process',
     'js:lib:watch'
 ];
 

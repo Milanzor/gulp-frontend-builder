@@ -6,24 +6,22 @@ var util = require('../tools/util');
 /**
  * app processing
  */
-var app = (function () {
+var app = (function() {
     var app = {};
 
-    app.watch = function () {
-        return gulp.watch(config.get('js.app.source'), {}, function (e) {
-
+    app.watch = function() {
+        return gulp.watch(config.get('js.app.source'), {}, function(e) {
             if (config.get('debug', false)) {
                 plugins.gutil.log('Js app watcher triggered by event \'' + plugins.gutil.colors.magenta(e.type) + '\' on \'' + plugins.gutil.colors.magenta(e.path) + '\'');
             }
 
-            plugins.debounce(function () {
+            plugins.debounce(function() {
                 app.process();
             }, 1000);
-
         });
     };
 
-    app.process = function () {
+    app.process = function() {
         return gulp.src(config.get('js.app.source'))
             .pipe(plugins.plumber())
             .pipe(plugins.newer({
@@ -32,7 +30,7 @@ var app = (function () {
             }))
             .pipe(plugins.using())
             .pipe(uglify())
-            .pipe(plugins.rename(function (path) {
+            .pipe(plugins.rename(function(path) {
                 path.extname = ".min.js"
             }))
             .pipe(gulp.dest(config.get('js.app.target')));
@@ -49,23 +47,23 @@ var app = (function () {
 /**
  * lib processing
  */
-var lib = (function () {
+var lib = (function() {
     var lib = {};
 
     var running = false;
 
-    lib.watch = function () {
-        gulp.watch(config.get('js.lib.source'), {}, function (e) {
+    lib.watch = function() {
+        gulp.watch(config.get('js.lib.source'), {}, function(e) {
             if (config.get('debug', false)) {
                 plugins.gutil.log('Js lib watcher triggered by event \'' + plugins.gutil.colors.magenta(e.type) + '\' on \'' + plugins.gutil.colors.magenta(e.path) + '\'');
             }
-            plugins.debounce(function () {
+            plugins.debounce(function() {
                 lib.process();
             }, 1000);
         });
     };
 
-    lib.process = function () {
+    lib.process = function() {
         if (running === false) {
             return gulp.src(config.get('js.lib.source'))
                 .pipe(plugins.plumber())
@@ -88,27 +86,27 @@ var lib = (function () {
 /**
  * vendors components
  */
-var vendors = (function () {
+var vendors = (function() {
     var vendors = {};
 
-    vendors.watch = function () {
+    vendors.watch = function() {
         var watchPath = [];
-        config.get('bower').forEach(function (bowerpath) {
+        config.get('bower').forEach(function(bowerpath) {
             watchPath.push(bowerpath + 'bower.json');
         });
         watchPath = watchPath.concat(config.get('js.manual-vendor-installation-path', []));
-        return gulp.watch(watchPath, {}, function (e) {
+        return gulp.watch(watchPath, {}, function(e) {
             if (config.get('debug', false)) {
                 plugins.gutil.log('Js vendors watcher triggered by event \'' + plugins.gutil.colors.magenta(e.type) + '\' on \'' + plugins.gutil.colors.magenta(e.path) + '\'');
             }
 
-            plugins.debounce(function () {
+            plugins.debounce(function() {
                 vendors.process();
             }, 1000);
         });
     };
 
-    vendors.process = function () {
+    vendors.process = function() {
         var vendor_files = util.getVendorFiles(config.get('bower'), config.get('js.manual-vendor-installation-path'), '**/*.js');
         return gulp.src(vendor_files)
             .pipe(plugins.plumber())

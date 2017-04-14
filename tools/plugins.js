@@ -9,6 +9,7 @@ module.exports = {
     order: require('gulp-order'),
     gulpIgnore: require('gulp-ignore'),
     newer: require('gulp-newer'),
+    clean: require('gulp-clean'),
     debounce: (function () {
         var timer = 0;
         return function (callback, ms) {
