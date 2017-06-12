@@ -2,31 +2,37 @@ var gulp = require('gulp');
 var config = require('../tools/config');
 var plugins = require('../tools/plugins');
 var sass = require('gulp-sass');
+var saneWatch = require('gulp-sane-watch');
 
-module.exports = (function () {
+module.exports = (function() {
 
     // Initialize scss
     var scss = {};
 
     // Watch task
-    scss.watch = function () {
-        return gulp.watch(config.get('scss.source'), {}, function (e) {
-            if (config.get('debug', false)) {
-                plugins.gutil.log('Scss watcher triggered by event \'' + plugins.gutil.colors.magenta(e.type) + '\' on \'' + plugins.gutil.colors.magenta(e.path) + '\'');
+    scss.watch = function() {
+
+        return saneWatch(config.get('scss.source'), {
+            verbose: config.get('debug', false),
+            saneOptions: {
+                poll: true
             }
-            plugins.debounce(function () {
+        }, function() {
+
+            plugins.debounce(function() {
                 scss.process();
             }, 1000);
         });
+
     };
 
-    scss.process = function () {
+    scss.process = function() {
         var autoprefixer = require('gulp-autoprefixer');
         return gulp.src(config.get('scss.source'))
             .pipe(plugins.plumber())
             .pipe(plugins.using())
             .pipe(sass({outputStyle: config.get('scss.style', 'compressed')}))
-            .pipe(plugins.rename(function (path) {
+            .pipe(plugins.rename(function(path) {
                 path.extname = ".min.css";
             }))
             .pipe(gulp.dest(config.get('scss.target')));
@@ -34,7 +40,7 @@ module.exports = (function () {
 
     var blessTargets = [config.get('scss.target') + '**/*.css', '!' + config.get('scss.target') + 'ie9/**/*.css'];
 
-    scss.processbless = function () {
+    scss.processbless = function() {
         var bless = require('gulp-bless');
         return gulp.src(blessTargets)
             .pipe(plugins.plumber())
@@ -44,7 +50,7 @@ module.exports = (function () {
             .pipe(gulp.dest(config.get('scss.target') + 'ie9/'));
     };
 
-    scss.clean = function(){
+    scss.clean = function() {
         var insert = require('gulp-insert');
         var cleanCSS = require('gulp-clean-css');
         return gulp.src([config.get('scss.target') + '**/*.css', '!' + config.get('scss.target') + 'ie9/**/*.css'])

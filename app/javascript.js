@@ -3,6 +3,8 @@ var config = require('../tools/config');
 var plugins = require('../tools/plugins');
 var uglify = require('gulp-uglify');
 var util = require('../tools/util');
+var saneWatch = require('gulp-sane-watch');
+
 /**
  * app processing
  */
@@ -10,14 +12,17 @@ var app = (function() {
     var app = {};
 
     app.watch = function() {
-        return gulp.watch(config.get('js.app.source'), {}, function(e) {
-            if (config.get('debug', false)) {
-                plugins.gutil.log('Js app watcher triggered by event \'' + plugins.gutil.colors.magenta(e.type) + '\' on \'' + plugins.gutil.colors.magenta(e.path) + '\'');
-            }
 
+        return saneWatch(config.get('js.app.source'), {
+            verbose: config.get('debug', false),
+            saneOptions: {
+                poll: true
+            }
+        }, function() {
             plugins.debounce(function() {
                 app.process();
             }, 1000);
+
         });
     };
 
@@ -50,29 +55,29 @@ var app = (function() {
 var lib = (function() {
     var lib = {};
 
-    var running = false;
 
     lib.watch = function() {
-        gulp.watch(config.get('js.lib.source'), {}, function(e) {
-            if (config.get('debug', false)) {
-                plugins.gutil.log('Js lib watcher triggered by event \'' + plugins.gutil.colors.magenta(e.type) + '\' on \'' + plugins.gutil.colors.magenta(e.path) + '\'');
+        return saneWatch(config.get('js.lib.source'), {
+            verbose: config.get('debug', false),
+            saneOptions: {
+                poll: true
             }
+        }, function() {
             plugins.debounce(function() {
                 lib.process();
             }, 1000);
+            
         });
     };
 
     lib.process = function() {
-        if (running === false) {
-            return gulp.src(config.get('js.lib.source'))
-                .pipe(plugins.plumber())
-                .pipe(plugins.order(config.get('js.lib.order')))
-                .pipe(plugins.using())
-                .pipe(uglify())
-                .pipe(plugins.concat('lib.min.js'))
-                .pipe(gulp.dest(config.get('js.lib.target')));
-        }
+        return gulp.src(config.get('js.lib.source'))
+            .pipe(plugins.plumber())
+            .pipe(plugins.order(config.get('js.lib.order')))
+            .pipe(plugins.using())
+            .pipe(uglify())
+            .pipe(plugins.concat('lib.min.js'))
+            .pipe(gulp.dest(config.get('js.lib.target')));
     };
 
     // Gulp tasks
