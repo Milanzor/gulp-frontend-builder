@@ -10,6 +10,7 @@
             "../../cakephp/app/Plugin/Appo/Assets/scss/**/*.scss"
         ],
         "target": "../../private_html/css/",
+        "file_ext": ".min.css",
         "style": "compressed"
     },
     "js": {
