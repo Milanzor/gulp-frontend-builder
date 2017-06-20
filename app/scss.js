@@ -33,7 +33,7 @@ module.exports = (function() {
             .pipe(plugins.using())
             .pipe(sass({outputStyle: config.get('scss.style', 'compressed')}))
             .pipe(plugins.rename(function(path) {
-                path.extname = ".min.css";
+                path.extname = config.get('scss.file_ext', '.min.css');
             }))
             .pipe(gulp.dest(config.get('scss.target')));
     };
