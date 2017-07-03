@@ -1,6 +1,7 @@
 {
     "name": "app/gulpo",
     "description": "Gulp asset compiler",
+    "type": "library",
     "authors": [
         {
             "name": "Milan van As",
