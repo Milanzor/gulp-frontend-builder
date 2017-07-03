@@ -1,5 +1,5 @@
 {
-    "name": "app/gulpo",
+    "name": "appo/builder",
     "description": "Gulp asset compiler",
     "type": "library",
     "authors": [
