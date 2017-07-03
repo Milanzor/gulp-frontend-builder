@@ -1,0 +1,11 @@
+{
+    "name": "appo/builder",
+    "description": "Gulp asset builder",
+    "authors": [
+        {
+            "name": "Milan van As",
+            "email": "milan@hetwonen.nl"
+        }
+    ],
+    "require": {}
+}
