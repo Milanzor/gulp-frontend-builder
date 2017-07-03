@@ -1,11 +1,12 @@
 {
     "name": "appo/gulpo",
-    "description": "Gulp asset builder",
+    "description": "Gulp asset compiler",
     "authors": [
         {
             "name": "Milan van As",
             "email": "milan@hetwonen.nl"
         }
     ],
+    "minimum-stability": "dev",
     "require": {}
 }
