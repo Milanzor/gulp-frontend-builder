@@ -4,12 +4,20 @@ try {
     try {
         var config = require('../../build.config.json');
     } catch (e) {
-        console.log('No valid config.json (or ../build.config.json) found');
-        process.exit();
+
+        try{
+            var  argv = require('minimist')(process.argv.slice(2));
+            var config = require(argv.config);
+
+        }catch(e){
+            console.log('No valid config.json (or ../build.config.json) found, you can also pass the location of the config file through --config /path/to/yourconfig.json');
+            process.exit();
+        }
+
     }
 }
-var util = require('./util');
 
+var util = require('./util');
 
 module.exports = (function () {
     var self = {};

@@ -28,6 +28,7 @@
     "gulp-using": "^0.1.1",
     "gulp-util": "^3.0.8",
     "main-bower-files": "^2.13.1",
+    "minimist": "^1.2.0",
     "require-dir": "^0.3.1"
   }
 }
