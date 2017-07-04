@@ -34,7 +34,11 @@ var app = (function() {
                 ext: '.min.js'
             }))
             .pipe(plugins.using())
-            .pipe(uglify())
+            .pipe(uglify({
+                output: {
+                    max_line_len: 500000
+                }
+            }))
             .pipe(plugins.rename(function(path) {
                 path.extname = ".min.js"
             }))
@@ -66,7 +70,7 @@ var lib = (function() {
             plugins.debounce(function() {
                 lib.process();
             }, 1000);
-            
+
         });
     };
 
@@ -75,7 +79,11 @@ var lib = (function() {
             .pipe(plugins.plumber())
             .pipe(plugins.order(config.get('js.lib.order')))
             .pipe(plugins.using())
-            .pipe(uglify())
+            .pipe(uglify({
+                output: {
+                    max_line_len: 500000
+                }
+            }))
             .pipe(plugins.concat('lib.min.js'))
             .pipe(gulp.dest(config.get('js.lib.target')));
     };
@@ -118,7 +126,11 @@ var vendors = (function() {
             .pipe(plugins.using())
             .pipe(plugins.order(config.get('js.vendors.order')))
             .pipe(plugins.gulpIgnore.include('**/*.js'))
-            .pipe(uglify())
+            .pipe(uglify({
+                output: {
+                    max_line_len: 500000
+                }
+            }))
             .pipe(plugins.concat('vendors.min.js'))
             .pipe(gulp.dest(config.get('js.vendors.target')));
     };
