@@ -6,9 +6,12 @@ try {
     } catch (e) {
 
         try{
-            var  argv = require('minimist')(process.argv.slice(2));
+            var argv = require('minimist')(process.argv.slice(2));
             var config = require(argv.config);
-
+            var wd = require('path').dirname(argv.config);
+            process.chdir(wd);
+            console.log('Using config file ' + argv.config);
+            console.log('Changes working directory to ' + wd);
         }catch(e){
             console.log('No valid config.json (or ../build.config.json) found, you can also pass the location of the config file through --config /path/to/yourconfig.json');
             process.exit();
