@@ -34,6 +34,7 @@ var app = (function() {
                 ext: '.min.js'
             }))
             .pipe(plugins.using())
+            .pipe(plugins.size({showFiles: true}))
             .pipe(uglify({
                 output: {
                     max_line_len: 500000
@@ -79,6 +80,7 @@ var lib = (function() {
             .pipe(plugins.plumber())
             .pipe(plugins.order(config.get('js.lib.order')))
             .pipe(plugins.using())
+            .pipe(plugins.size({showFiles: true}))
             .pipe(uglify({
                 output: {
                     max_line_len: 500000
@@ -124,6 +126,7 @@ var vendors = (function() {
         return gulp.src(vendor_files)
             .pipe(plugins.plumber())
             .pipe(plugins.using())
+            .pipe(plugins.size({showFiles: true}))
             .pipe(plugins.order(config.get('js.vendors.order')))
             .pipe(plugins.gulpIgnore.include('**/*.js'))
             .pipe(uglify({

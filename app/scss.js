@@ -31,6 +31,7 @@ module.exports = (function() {
         return gulp.src(config.get('scss.source'))
             .pipe(plugins.plumber())
             .pipe(plugins.using())
+            .pipe(plugins.size({showFiles: true}))
             .pipe(sass({outputStyle: config.get('scss.style', 'compressed')}))
             .pipe(plugins.rename(function(path) {
                 path.extname = config.get('scss.file_ext', '.min.css');
