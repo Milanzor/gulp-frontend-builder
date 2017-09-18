@@ -11,14 +11,12 @@ module.exports = (function() {
 
     // Watch task
     scss.watch = function() {
-
         return saneWatch(config.get('scss.source'), {
             verbose: config.get('debug', false),
             saneOptions: {
                 poll: true
             }
         }, function() {
-
             plugins.debounce(function() {
                 scss.process();
             }, 1000);
@@ -27,6 +25,7 @@ module.exports = (function() {
     };
 
     scss.process = function() {
+        config.refresh();
         var autoprefixer = require('gulp-autoprefixer');
         return gulp.src(config.get('scss.source'))
             .pipe(plugins.plumber())
@@ -42,6 +41,7 @@ module.exports = (function() {
     var blessTargets = [config.get('scss.target') + '**/*.css', '!' + config.get('scss.target') + 'ie9/**/*.css'];
 
     scss.processbless = function() {
+        config.refresh();
         var bless = require('gulp-bless');
         return gulp.src(blessTargets)
             .pipe(plugins.plumber())
