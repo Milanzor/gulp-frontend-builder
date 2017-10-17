@@ -27,6 +27,7 @@ var app = (function() {
     };
 
     app.process = function() {
+        config.refresh();
         return gulp.src(config.get('js.app.source'))
             .pipe(plugins.plumber())
             .pipe(plugins.newer({
@@ -76,6 +77,7 @@ var lib = (function() {
     };
 
     lib.process = function() {
+        config.refresh();
         return gulp.src(config.get('js.lib.source'))
             .pipe(plugins.plumber())
             .pipe(plugins.order(config.get('js.lib.order')))
@@ -122,12 +124,13 @@ var vendors = (function() {
     };
 
     vendors.process = function() {
+        config.refresh();
         var vendor_files = util.getVendorFiles(config.get('bower'), config.get('js.manual-vendor-installation-path'), '**/*.js');
         return gulp.src(vendor_files)
             .pipe(plugins.plumber())
+            .pipe(plugins.order(config.get('js.vendors.order')))
             .pipe(plugins.using())
             .pipe(plugins.size({showFiles: true}))
-            .pipe(plugins.order(config.get('js.vendors.order')))
             .pipe(plugins.gulpIgnore.include('**/*.js'))
             .pipe(uglify({
                 output: {
