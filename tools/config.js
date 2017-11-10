@@ -1,3 +1,5 @@
+var path = require('path');
+
 try {
     var configLocation = '../config.json';
     var config = require(configLocation);
@@ -8,15 +10,26 @@ try {
     } catch (e) {
 
         try {
+
+            // Get arguments
             var argv = require('minimist')(process.argv.slice(2));
+
+            // Config argument
             var configLocation = argv.config;
+
+            // Make workingdirectory
+            var workingDirectory = path.resolve(path.dirname(argv.config))
+
+            // Load the config
             var config = require(configLocation);
-            var wd = require('path').dirname(argv.config);
-            process.chdir(wd);
+
+            process.chdir(workingDirectory);
+
             console.log('Using config file ' + argv.config);
-            console.log('Changes working directory to ' + wd);
+            console.log('Changes working directory to ' + workingDirectory  );
+
         } catch (e) {
-            console.log('No valid config.json (or ../build.config.json) found, you can also pass the location of the config file through --config /path/to/yourconfig.json');
+            console.log('No valid config.json (or ../build.config.json) found, you can also pass the location of the config file through --config path/to/yourconfig.json');
             process.exit();
         }
 
@@ -26,7 +39,6 @@ try {
 var util = require('./util');
 var gulp = require('gulp');
 var saneWatch = require('gulp-sane-watch');
-var path = require('path');
 module.exports = (function() {
     var self = {};
 
