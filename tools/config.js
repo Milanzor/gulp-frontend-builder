@@ -15,13 +15,12 @@ try {
             var argv = require('minimist')(process.argv.slice(2));
 
             // Config argument
-            var configLocation = argv.config;
-
+            var configLocation = path.resolve(argv.config);
             // Make workingdirectory
-            var workingDirectory = path.resolve(path.dirname(argv.config))
+            var workingDirectory = path.dirname(configLocation);
 
             // Load the config
-            var config = require(configLocation);
+            var config = require(path.resolve(configLocation));
 
             process.chdir(workingDirectory);
 
