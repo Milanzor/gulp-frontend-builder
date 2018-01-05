@@ -1,4 +1,4 @@
-# Appo Gulp Frontend-Assets-Builder-Thing
+# Gulp Frontend-Assets-Builder-Thing
 
 A gulp script for processing/concatting/compiling js/scss/jslib/bower_components etc
 
