@@ -14,6 +14,6 @@ A gulp script for processing/concatting/compiling js/scss/jslib/bower_components
 
 ## Notes
 
-1. It's possible to pass the config file from a command line option with --config ../path/to/config.json (can be relative or absolute)
+1. It's possible to pass the config file from a command line option with `--config ../path/to/config.json` (can be relative or absolute)
 2. This builder currently assumes you have Gulp installed globally
 
