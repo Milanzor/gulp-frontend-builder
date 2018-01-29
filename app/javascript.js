@@ -5,6 +5,8 @@ var uglify = require('gulp-uglify');
 var util = require('../tools/util');
 var saneWatch = require('gulp-sane-watch');
 
+const babel = require('gulp-babel');
+
 /**
  * app processing
  */
@@ -27,7 +29,6 @@ var app = (function() {
     };
 
     app.process = function() {
-        config.refresh();
         return gulp.src(config.get('js.app.source'))
             .pipe(plugins.plumber())
             .pipe(plugins.newer({
@@ -36,6 +37,9 @@ var app = (function() {
             }))
             .pipe(plugins.using())
             .pipe(plugins.size({showFiles: true}))
+            .pipe(babel({
+                presets: ['babel-preset-env'].map(require.resolve)
+            }))
             .pipe(uglify({
                 output: {
                     max_line_len: 500000
@@ -77,7 +81,6 @@ var lib = (function() {
     };
 
     lib.process = function() {
-        config.refresh();
         return gulp.src(config.get('js.lib.source'))
             .pipe(plugins.plumber())
             .pipe(plugins.order(config.get('js.lib.order')))
@@ -124,7 +127,6 @@ var vendors = (function() {
     };
 
     vendors.process = function() {
-        config.refresh();
         var vendor_files = util.getVendorFiles(config.get('bower'), config.get('js.manual-vendor-installation-path'), '**/*.js');
         return gulp.src(vendor_files)
             .pipe(plugins.plumber())
