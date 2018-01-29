@@ -4,7 +4,6 @@ var plugins = require('../tools/plugins');
 var uglify = require('gulp-uglify');
 var util = require('../tools/util');
 var saneWatch = require('gulp-sane-watch');
-const babel = require('gulp-babel');
 
 /**
  * app processing
@@ -37,9 +36,6 @@ var app = (function() {
             }))
             .pipe(plugins.using())
             .pipe(plugins.size({showFiles: true}))
-            .pipe(babel({
-                presets: ['@babel/env']
-            }))
             .pipe(uglify({
                 output: {
                     max_line_len: 500000
@@ -87,9 +83,6 @@ var lib = (function() {
             .pipe(plugins.order(config.get('js.lib.order')))
             .pipe(plugins.using())
             .pipe(plugins.size({showFiles: true}))
-            .pipe(babel({
-                presets: ['@babel/env']
-            }))
             .pipe(uglify({
                 output: {
                     max_line_len: 500000
