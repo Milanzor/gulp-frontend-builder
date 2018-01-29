@@ -86,6 +86,7 @@ var lib = (function() {
             .pipe(plugins.order(config.get('js.lib.order')))
             .pipe(plugins.using())
             .pipe(plugins.size({showFiles: true}))
+            .pipe(plugins.concat('lib.min.js'))
             .pipe(babel({
                 presets: ['babel-preset-env'].map(require.resolve)
             }))
@@ -94,7 +95,6 @@ var lib = (function() {
                     max_line_len: 500000
                 }
             }))
-            .pipe(plugins.concat('lib.min.js'))
             .pipe(gulp.dest(config.get('js.lib.target')));
     };
 
