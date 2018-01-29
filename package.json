@@ -4,16 +4,16 @@
   "description": "Gulp builder for Appo apps",
   "main": "gulpfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Milan van As",
-  "scripts": {
     "watch": "gulp"
   },
+  "author": "Milan van As",
   "license": "ISC",
   "dependencies": {
+    "@babel/core": "^7.0.0-beta.38",
+    "@babel/preset-env": "^7.0.0-beta.38",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^4.0.0",
+    "gulp-babel": "^7.0.1",
     "gulp-bless": "^4.0.0",
     "gulp-clean": "^0.3.2",
     "gulp-clean-css": "^3.9.0",
