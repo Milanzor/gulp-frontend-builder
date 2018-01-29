@@ -86,6 +86,9 @@ var lib = (function() {
             .pipe(plugins.order(config.get('js.lib.order')))
             .pipe(plugins.using())
             .pipe(plugins.size({showFiles: true}))
+            .pipe(babel({
+                presets: ['babel-preset-env'].map(require.resolve)
+            }))
             .pipe(uglify({
                 output: {
                     max_line_len: 500000
