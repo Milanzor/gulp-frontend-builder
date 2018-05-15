@@ -4,7 +4,8 @@
   "description": "Gulp builder for Appo apps",
   "main": "gulpfile.js",
   "scripts": {
-    "watch": "gulp"
+    "gulp": "gulp",
+    "compile-all": "gulp fonts:process js:app:process js:vendors:process js:lib:process scss:process"
   },
   "author": "Milan van As",
   "license": "ISC",
