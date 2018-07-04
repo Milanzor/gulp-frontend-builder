@@ -1,5 +1,5 @@
 {
-    "name": "app/builder",
+    "name": "builder/gulp-frontend-builder",
     "description": "Gulp asset compiler",
     "type": "library",
     "authors": [
