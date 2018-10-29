@@ -1,5 +1,5 @@
 {
-  "name": "appo-gulp",
+  "name": "gulp-frontend-builder",
   "version": "1.0.0",
   "description": "Gulp builder for Appo apps",
   "main": "gulpfile.js",
