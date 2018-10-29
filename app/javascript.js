@@ -1,17 +1,17 @@
-var gulp = require('gulp');
-var config = require('../tools/config');
-var plugins = require('../tools/plugins');
-var uglify = require('gulp-uglify');
-var util = require('../tools/util');
-var saneWatch = require('gulp-sane-watch');
+const gulp = require('gulp');
+const config = require('../tools/config');
+const plugins = require('../tools/plugins');
+const uglify = require('gulp-uglify');
+const util = require('../tools/util');
+const saneWatch = require('gulp-sane-watch');
 
 const babel = require('gulp-babel');
 
 /**
  * app processing
  */
-var app = (function() {
-    var app = {};
+const app = (function() {
+    const app = {};
 
     app.watch = function() {
 
@@ -30,25 +30,25 @@ var app = (function() {
 
     app.process = function() {
         return gulp.src(config.get('js.app.source'))
-            .pipe(plugins.plumber())
-            .pipe(plugins.newer({
-                dest: config.get('js.app.target'),
-                ext: '.min.js'
-            }))
-            .pipe(plugins.using())
-            .pipe(plugins.size({showFiles: true}))
-            .pipe(babel({
-                presets: ['babel-preset-env'].map(require.resolve)
-            }))
-            .pipe(uglify({
-                output: {
-                    max_line_len: 500000
-                }
-            }))
-            .pipe(plugins.rename(function(path) {
-                path.extname = ".min.js"
-            }))
-            .pipe(gulp.dest(config.get('js.app.target')));
+        .pipe(plugins.plumber())
+        .pipe(plugins.newer({
+            dest: config.get('js.app.target'),
+            ext: '.min.js'
+        }))
+        .pipe(plugins.using())
+        .pipe(plugins.size({showFiles: true}))
+        .pipe(babel({
+            presets: ['babel-preset-env'].map(require.resolve)
+        }))
+        .pipe(uglify({
+            output: {
+                max_line_len: 500000
+            }
+        }))
+        .pipe(plugins.rename(function(path) {
+            path.extname = '.min.js';
+        }))
+        .pipe(gulp.dest(config.get('js.app.target')));
     };
 
     // Gulp tasks
@@ -58,13 +58,11 @@ var app = (function() {
     return app;
 })();
 
-
 /**
  * lib processing
  */
-var lib = (function() {
-    var lib = {};
-
+const lib = (function() {
+    const lib = {};
 
     lib.watch = function() {
         return saneWatch(config.get('js.lib.source'), {
@@ -82,20 +80,20 @@ var lib = (function() {
 
     lib.process = function() {
         return gulp.src(config.get('js.lib.source'))
-            .pipe(plugins.plumber())
-            .pipe(plugins.order(config.get('js.lib.order')))
-            .pipe(plugins.using())
-            .pipe(plugins.size({showFiles: true}))
-            .pipe(plugins.concat('lib.min.js'))
-            .pipe(babel({
-                presets: ['babel-preset-env'].map(require.resolve)
-            }))
-            .pipe(uglify({
-                output: {
-                    max_line_len: 500000
-                }
-            }))
-            .pipe(gulp.dest(config.get('js.lib.target')));
+        .pipe(plugins.plumber())
+        .pipe(plugins.order(config.get('js.lib.order')))
+        .pipe(plugins.using())
+        .pipe(plugins.size({showFiles: true}))
+        .pipe(plugins.concat('lib.min.js'))
+        .pipe(babel({
+            presets: ['babel-preset-env'].map(require.resolve)
+        }))
+        .pipe(uglify({
+            output: {
+                max_line_len: 500000
+            }
+        }))
+        .pipe(gulp.dest(config.get('js.lib.target')));
     };
 
     // Gulp tasks
@@ -105,15 +103,14 @@ var lib = (function() {
     return app;
 })();
 
-
 /**
  * vendors components
  */
-var vendors = (function() {
-    var vendors = {};
+const vendors = (function() {
+    const vendors = {};
 
     vendors.watch = function() {
-        var watchPath = [];
+        let watchPath = [];
         config.get('bower').forEach(function(bowerpath) {
             watchPath.push(bowerpath + 'bower.json');
         });
@@ -130,20 +127,20 @@ var vendors = (function() {
     };
 
     vendors.process = function() {
-        var vendor_files = util.getVendorFiles(config.get('bower'), config.get('js.manual-vendor-installation-path'), '**/*.js');
+        const vendor_files = util.getVendorFiles(config.get('bower'), config.get('js.manual-vendor-installation-path'), '**/*.js');
         return gulp.src(vendor_files)
-            .pipe(plugins.plumber())
-            .pipe(plugins.order(config.get('js.vendors.order')))
-            .pipe(plugins.using())
-            .pipe(plugins.size({showFiles: true}))
-            .pipe(plugins.gulpIgnore.include('**/*.js'))
-            .pipe(uglify({
-                output: {
-                    max_line_len: 500000
-                }
-            }))
-            .pipe(plugins.concat('vendors.min.js'))
-            .pipe(gulp.dest(config.get('js.vendors.target')));
+        .pipe(plugins.plumber())
+        .pipe(plugins.order(config.get('js.vendors.order')))
+        .pipe(plugins.using())
+        .pipe(plugins.size({showFiles: true}))
+        .pipe(plugins.gulpIgnore.include('**/*.js'))
+        .pipe(uglify({
+            output: {
+                max_line_len: 500000
+            }
+        }))
+        .pipe(plugins.concat('vendors.min.js'))
+        .pipe(gulp.dest(config.get('js.vendors.target')));
     };
 
     // Gulp tasks
@@ -155,4 +152,3 @@ var vendors = (function() {
 })();
 
 module.exports = {app: app, vendors: vendors, lib: lib};
-

@@ -1,21 +1,22 @@
-var gulp = require('gulp');
-var config = require('../tools/config');
-var plugins = require('../tools/plugins');
-var util = require('../tools/util');
+const gulp = require('gulp');
+const config = require('../tools/config');
+const plugins = require('../tools/plugins');
+const util = require('../tools/util');
 
-module.exports = (function () {
+module.exports = (function() {
 
     // Initialize self
-    var fonts = {};
+    const fonts = {};
 
-    fonts.process = function () {
-        var vendor_files = util.getVendorFiles(config.get('bower', []), config.get('fonts.manual-vendor-installation-path'), ['**/*.svg', '**/*.eot', '**/*.ttf', '**/*.woff', '**/*.woff2']);
+    fonts.process = function() {
+        const vendor_files = util.getVendorFiles(config.get('bower', []), config.get('fonts.manual-vendor-installation-path'), ['**/*.svg', '**/*.eot', '**/*.ttf', '**/*.woff', '**/*.woff2']);
         return gulp.src(vendor_files)
-            .pipe(plugins.plumber())
-            .pipe(plugins.using())
-            .pipe(gulp.dest(config.get('fonts.target')));
+        .pipe(plugins.plumber())
+        .pipe(plugins.using())
+        .pipe(gulp.dest(config.get('fonts.target')));
     };
 
     // Gulp tasks
     gulp.task('fonts:process', fonts.process);
 })();
+
