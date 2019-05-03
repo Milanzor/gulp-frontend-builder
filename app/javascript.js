@@ -114,12 +114,15 @@ const vendors = (function() {
         config.get('bower').forEach(function(bowerpath) {
             watchPath.push(bowerpath + 'bower.json');
         });
-        watchPath = watchPath.concat(config.get('js.manual-vendor-installation-path', []));
-        return gulp.watch(watchPath, {}, function(e) {
-            if (config.get('debug', false)) {
-                plugins.gutil.log('Js vendors watcher triggered by event \'' + plugins.gutil.colors.magenta(e.type) + '\' on \'' + plugins.gutil.colors.magenta(e.path) + '\'');
-            }
 
+        watchPath = watchPath.concat(config.get('js.manual-vendor-installation-path', []));
+
+        return saneWatch(watchPath, {
+            verbose: config.get('debug', false),
+            saneOptions: {
+                poll: true
+            }
+        }, function() {
             plugins.debounce(function() {
                 vendors.process();
             }, 1000);
@@ -152,4 +155,5 @@ const vendors = (function() {
 })();
 
 module.exports = {app: app, vendors: vendors, lib: lib};
+
 
