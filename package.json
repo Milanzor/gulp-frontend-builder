@@ -1,7 +1,7 @@
 {
   "name": "gulp-frontend-builder",
-  "version": "1.0.2",
-  "description": "Gulp builder for Appo apps",
+  "version": "1.0.5",
+  "description": "Gulp builder for stuff",
   "main": "gulpfile.js",
   "scripts": {
     "gulp": "gulp",
@@ -36,3 +36,4 @@
     "require-dir": "^1.2.0"
   }
 }
+

@@ -6,7 +6,7 @@ const util = require('../tools/util');
 const saneWatch = require('gulp-sane-watch');
 
 const babel = require('gulp-babel');
-
+console.log(babel);
 /**
  * app processing
  */
@@ -38,7 +38,7 @@ const app = (function() {
         .pipe(plugins.using())
         .pipe(plugins.size({showFiles: true}))
         .pipe(babel({
-            presets: ['babel-preset-env'].map(require.resolve)
+            presets: ['@babel/preset-env'].map(require.resolve)
         }))
         .pipe(uglify({
             output: {
@@ -86,7 +86,7 @@ const lib = (function() {
         .pipe(plugins.size({showFiles: true}))
         .pipe(plugins.concat('lib.min.js'))
         .pipe(babel({
-            presets: ['babel-preset-env'].map(require.resolve)
+            presets: ['@babel/preset-env'].map(require.resolve)
         }))
         .pipe(uglify({
             output: {
@@ -152,3 +152,4 @@ const vendors = (function() {
 })();
 
 module.exports = {app: app, vendors: vendors, lib: lib};
+
