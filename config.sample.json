@@ -1,9 +1,4 @@
 {
-    "images": {
-        "source": [
-            "../../private_html/img/**/*.*"
-        ]
-    },
     "scss": {
         "source": [
             "../scss/**/*.scss",
