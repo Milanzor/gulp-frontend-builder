@@ -31,7 +31,7 @@
     "gulp-uglify": "^3.0.2",
     "gulp-using": "^0.1.1",
     "gulp-util": "^3.0.8",
-    "main-bower-files": "^2.13.1",
+    "main-bower-files": "^2.13.3",
     "minimist": "^1.2.0",
     "require-dir": "^1.2.0"
   }
