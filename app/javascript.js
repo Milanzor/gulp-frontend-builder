@@ -6,7 +6,7 @@ const util = require('../tools/util');
 const saneWatch = require('gulp-sane-watch');
 
 const babel = require('gulp-babel');
-console.log(babel);
+
 /**
  * app processing
  */
@@ -18,7 +18,7 @@ const app = (function() {
         return saneWatch(config.get('js.app.source'), {
             verbose: config.get('debug', false),
             saneOptions: {
-                poll: true
+                poll: config.get('polling', false)
             }
         }, function() {
             plugins.debounce(function() {
@@ -68,7 +68,7 @@ const lib = (function() {
         return saneWatch(config.get('js.lib.source'), {
             verbose: config.get('debug', false),
             saneOptions: {
-                poll: true
+                poll: config.get('polling', false)
             }
         }, function() {
             plugins.debounce(function() {
@@ -120,7 +120,7 @@ const vendors = (function() {
         return saneWatch(watchPath, {
             verbose: config.get('debug', false),
             saneOptions: {
-                poll: true
+                poll: config.get('polling', false)
             }
         }, function() {
             plugins.debounce(function() {

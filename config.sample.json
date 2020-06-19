@@ -47,6 +47,7 @@
         ],
         "target": "../../private_html/fonts/"
     },
-    "debug": true
+    "debug": true,
+    "polling": true
 }
 

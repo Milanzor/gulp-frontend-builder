@@ -14,7 +14,7 @@ module.exports = (function() {
         return saneWatch(config.get('scss.source'), {
             verbose: config.get('debug', false),
             saneOptions: {
-                poll: true
+                poll: config.get('polling', false)
             }
         }, function() {
             plugins.debounce(function() {
