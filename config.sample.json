@@ -7,15 +7,48 @@
         "target": "../../private_html/css/",
         "file_ext": ".min.css",
         "style": "compressed",
-        "chmod": "664"
+        "directory-chmod": "0777",
+        "chmod": {
+            "owner": {
+                "read": true,
+                "write": true,
+                "execute": false
+            },
+            "group": {
+                "read": true,
+                "write": true,
+                "execute": false
+            },
+            "others": {
+                "read": true,
+                "write": false,
+                "execute": false
+            }
+        }
     },
     "js": {
         "app": {
             "source": [
                 "../js/app/**/*.js"
             ],
-            "target": "../../private_html/js/app/",
-            "chmod": "664"
+            "target": "../../private_html/js/app/","directory-chmod": "0777",
+            "chmod": {
+                "owner": {
+                    "read": true,
+                    "write": true,
+                    "execute": false
+                },
+                "group": {
+                    "read": true,
+                    "write": true,
+                    "execute": false
+                },
+                "others": {
+                    "read": true,
+                    "write": false,
+                    "execute": false
+                }
+            }
         },
         "vendors": {
             "order": [
@@ -23,7 +56,24 @@
                 "*"
             ],
             "target": "../../private_html/js/",
-            "chmod": "664"
+            "directory-chmod": "0777",
+            "chmod": {
+                "owner": {
+                    "read": true,
+                    "write": true,
+                    "execute": false
+                },
+                "group": {
+                    "read": true,
+                    "write": true,
+                    "execute": false
+                },
+                "others": {
+                    "read": true,
+                    "write": false,
+                    "execute": false
+                }
+            }
         },
         "manual-vendor-installation-path": [
             "../vendors/manual/**/*.js"
@@ -38,7 +88,24 @@
                 "*"
             ],
             "target": "../../private_html/js/",
-            "chmod": "664"
+            "directory-chmod": "0775",
+            "chmod": {
+              "owner": {
+                "read": true,
+                "write": true,
+                "execute": false
+              },
+              "group": {
+                "read": true,
+                "write": true,
+                "execute": false
+              },
+              "others": {
+                "read": true,
+                "write": false,
+                "execute": false
+              }
+            }
         }
     },
     "bower": [
@@ -51,6 +118,24 @@
         ],
         "target": "../../private_html/fonts/",
         "chmod": "664"
+        "directory-chmod": "0775",
+        "chmod": {
+            "owner": {
+                 "read": true,
+                 "write": true,
+                 "execute": false
+             },
+             "group": {
+                 "read": true,
+                 "write": true,
+                 "execute": false
+             },
+             "others": {
+                 "read": true,
+                 "write": false,
+                 "execute": false
+             }
+         }
     },
     "debug": true,
     "polling": true
