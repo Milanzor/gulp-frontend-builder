@@ -40,7 +40,7 @@ module.exports = (function() {
             path.extname = config.get('scss.file_ext', '.min.css');
         }))
         .pipe(chmod(config.get('scss.chmod')))
-        .pipe(gulp.dest(config.get('scss.target')));
+        .pipe(gulp.dest(config.get('scss.target'), {mode: config.get('scss.directory-chmod')}));
     };
 
     // Gulp tasks

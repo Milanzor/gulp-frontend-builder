@@ -15,7 +15,7 @@ module.exports = (function() {
         .pipe(plugins.plumber())
         .pipe(plugins.using())
         .pipe(chmod(config.get('fonts.chmod')))
-        .pipe(gulp.dest(config.get('fonts.target')));
+        .pipe(gulp.dest(config.get('fonts.target'), {mode: config.get('fonts.directory-chmod')}));
     };
 
     // Gulp tasks
