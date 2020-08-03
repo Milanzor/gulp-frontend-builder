@@ -49,7 +49,7 @@ const app = (function() {
             path.extname = '.min.js';
         }))
         .pipe(chmod(config.get('js.app.chmod')))
-        .pipe(gulp.dest(config.get('js.app.target'), {mode: config.get('js.app.directory-chmod')}));
+        .pipe(gulp.dest(config.get('js.app.target'), {mode: config.get('js.app.chmod'), dirMode: config.get('js.app.directory-chmod')}));
     };
 
     // Gulp tasks
@@ -95,7 +95,7 @@ const lib = (function() {
             }
         }))
         .pipe(chmod(config.get('js.lib.chmod')))
-        .pipe(gulp.dest(config.get('js.lib.target'), {mode: config.get('js.lib.directory-chmod')}));
+        .pipe(gulp.dest(config.get('js.lib.target'), {mode: config.get('js.lib.chmod'), dirMode: config.get('js.lib.directory-chmod')}));
     };
 
     // Gulp tasks
@@ -146,7 +146,7 @@ const vendors = (function() {
         }))
         .pipe(plugins.concat('vendors.min.js'))
         .pipe(chmod(config.get('js.vendors.chmod')))
-        .pipe(gulp.dest(config.get('js.vendors.target'), {mode: config.get('js.vendors.directory-chmod')}));
+        .pipe(gulp.dest(config.get('js.vendors.target'), {mode: config.get('js.vendors.chmod'), dirMode: config.get('js.vendors.directory-chmod')}));
     };
 
     // Gulp tasks

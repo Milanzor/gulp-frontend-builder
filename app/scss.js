@@ -3,7 +3,6 @@ const config = require('../tools/config');
 const plugins = require('../tools/plugins');
 const sass = require('gulp-sass');
 const saneWatch = require('gulp-sane-watch');
-const chmod = require('gulp-chmod');
 
 module.exports = (function() {
 
@@ -39,8 +38,7 @@ module.exports = (function() {
         .pipe(plugins.rename(function(path) {
             path.extname = config.get('scss.file_ext', '.min.css');
         }))
-        .pipe(chmod(config.get('scss.chmod')))
-        .pipe(gulp.dest(config.get('scss.target'), {mode: config.get('scss.directory-chmod')}));
+        .pipe(gulp.dest(config.get('scss.target'), {mode: config.get('scss.chmod'), dirMode: config.get('scss.directory-chmod')}));
     };
 
     // Gulp tasks
