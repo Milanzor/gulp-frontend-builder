@@ -1,5 +1,5 @@
 {
-    "version": "1.0.9",
+    "version": "1.0.10",
     "name": "builder/gulp-frontend-builder",
     "description": "Gulp asset compiler",
     "type": "library",
