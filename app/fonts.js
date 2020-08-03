@@ -2,6 +2,7 @@ const gulp = require('gulp');
 const config = require('../tools/config');
 const plugins = require('../tools/plugins');
 const util = require('../tools/util');
+const chmod = require('gulp-chmod');
 
 module.exports = (function() {
 
@@ -13,6 +14,7 @@ module.exports = (function() {
         return gulp.src(vendor_files)
         .pipe(plugins.plumber())
         .pipe(plugins.using())
+        .pipe(chmod(config.get('fonts.chmod')))
         .pipe(gulp.dest(config.get('fonts.target')));
     };
 

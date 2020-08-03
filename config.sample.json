@@ -6,21 +6,24 @@
         ],
         "target": "../../private_html/css/",
         "file_ext": ".min.css",
-        "style": "compressed"
+        "style": "compressed",
+        "chmod": "664"
     },
     "js": {
         "app": {
             "source": [
                 "../js/app/**/*.js"
             ],
-            "target": "../../private_html/js/app/"
+            "target": "../../private_html/js/app/",
+            "chmod": "664"
         },
         "vendors": {
             "order": [
                 "jquery.js",
                 "*"
             ],
-            "target": "../../private_html/js/"
+            "target": "../../private_html/js/",
+            "chmod": "664"
         },
         "manual-vendor-installation-path": [
             "../vendors/manual/**/*.js"
@@ -34,7 +37,8 @@
                 "Lib.js",
                 "*"
             ],
-            "target": "../../private_html/js/"
+            "target": "../../private_html/js/",
+            "chmod": "664"
         }
     },
     "bower": [
@@ -45,7 +49,8 @@
         "manual-vendor-installation-path": [
             "../vendors/manual/**/*.{svg,eot,ttf,woff,woff2}"
         ],
-        "target": "../../private_html/fonts/"
+        "target": "../../private_html/fonts/",
+        "chmod": "664"
     },
     "debug": true,
     "polling": true

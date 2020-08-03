@@ -4,7 +4,7 @@ const plugins = require('../tools/plugins');
 const uglify = require('gulp-uglify');
 const util = require('../tools/util');
 const saneWatch = require('gulp-sane-watch');
-
+const chmod = require('gulp-chmod');
 const babel = require('gulp-babel');
 
 /**
@@ -48,6 +48,7 @@ const app = (function() {
         .pipe(plugins.rename(function(path) {
             path.extname = '.min.js';
         }))
+        .pipe(chmod(config.get('js.app.chmod')))
         .pipe(gulp.dest(config.get('js.app.target')));
     };
 
@@ -93,6 +94,7 @@ const lib = (function() {
                 max_line_len: 500000
             }
         }))
+        .pipe(chmod(config.get('js.lib.chmod')))
         .pipe(gulp.dest(config.get('js.lib.target')));
     };
 
@@ -143,6 +145,7 @@ const vendors = (function() {
             }
         }))
         .pipe(plugins.concat('vendors.min.js'))
+        .pipe(chmod(config.get('js.vendors.chmod')))
         .pipe(gulp.dest(config.get('js.vendors.target')));
     };
 
