@@ -1,4 +1,4 @@
-var config = require('./config');
+const config = require('./config');
 
 module.exports = {
     plumber: require('gulp-plumber'),
@@ -11,9 +11,14 @@ module.exports = {
     gulpIgnore: require('gulp-ignore'),
     newer: require('gulp-newer'),
     clean: require('gulp-clean'),
-    debounce: (function () {
-        var timer = 0;
-        return function (callback, ms) {
+    chmod: require('gulp-chmod'),
+    uglify: require('gulp-uglify'),
+    babel: require('gulp-babel'),
+    autoprefixer: require('gulp-autoprefixer'),
+    sass: require('gulp-sass'),
+    debounce: (function() {
+        let timer = 0;
+        return function(callback, ms) {
             clearTimeout(timer);
             timer = setTimeout(callback, ms);
         };

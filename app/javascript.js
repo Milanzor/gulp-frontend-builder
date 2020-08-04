@@ -1,11 +1,8 @@
 const gulp = require('gulp');
 const config = require('../tools/config');
 const plugins = require('../tools/plugins');
-const uglify = require('gulp-uglify');
 const util = require('../tools/util');
 const saneWatch = require('gulp-sane-watch');
-const chmod = require('gulp-chmod');
-const babel = require('gulp-babel');
 
 /**
  * app processing
@@ -37,10 +34,10 @@ const app = (function() {
         }))
         .pipe(plugins.using())
         .pipe(plugins.size({showFiles: true}))
-        .pipe(babel({
+        .pipe(plugins.babel({
             presets: ['@babel/preset-env'].map(require.resolve)
         }))
-        .pipe(uglify({
+        .pipe(plugins.uglify({
             output: {
                 max_line_len: 500000
             }
@@ -48,8 +45,9 @@ const app = (function() {
         .pipe(plugins.rename(function(path) {
             path.extname = '.min.js';
         }))
-        .pipe(chmod(config.get('js.app.chmod')))
-        .pipe(gulp.dest(config.get('js.app.target'), {mode: config.get('js.app.chmod'), dirMode: config.get('js.app.directory-chmod')}));
+        .pipe(plugins.chmod(config.get('directory-chmod'), true))
+        .pipe(plugins.chmod(config.get('chmod')))
+        .pipe(gulp.dest(config.get('js.app.target')));
     };
 
     // Gulp tasks
@@ -86,16 +84,17 @@ const lib = (function() {
         .pipe(plugins.using())
         .pipe(plugins.size({showFiles: true}))
         .pipe(plugins.concat('lib.min.js'))
-        .pipe(babel({
+        .pipe(plugins.babel({
             presets: ['@babel/preset-env'].map(require.resolve)
         }))
-        .pipe(uglify({
+        .pipe(plugins.uglify({
             output: {
                 max_line_len: 500000
             }
         }))
-        .pipe(chmod(config.get('js.lib.chmod')))
-        .pipe(gulp.dest(config.get('js.lib.target'), {mode: config.get('js.lib.chmod'), dirMode: config.get('js.lib.directory-chmod')}));
+        .pipe(plugins.chmod(config.get('directory-chmod'), true))
+        .pipe(plugins.chmod(config.get('chmod')))
+        .pipe(gulp.dest(config.get('js.lib.target')));
     };
 
     // Gulp tasks
@@ -139,14 +138,15 @@ const vendors = (function() {
         .pipe(plugins.using())
         .pipe(plugins.size({showFiles: true}))
         .pipe(plugins.gulpIgnore.include('**/*.js'))
-        .pipe(uglify({
+        .pipe(plugins.uglify({
             output: {
                 max_line_len: 500000
             }
         }))
         .pipe(plugins.concat('vendors.min.js'))
-        .pipe(chmod(config.get('js.vendors.chmod')))
-        .pipe(gulp.dest(config.get('js.vendors.target'), {mode: config.get('js.vendors.chmod'), dirMode: config.get('js.vendors.directory-chmod')}));
+        .pipe(plugins.chmod(config.get('directory-chmod'), true))
+        .pipe(plugins.chmod(config.get('chmod')))
+        .pipe(gulp.dest(config.get('js.vendors.target')));
     };
 
     // Gulp tasks

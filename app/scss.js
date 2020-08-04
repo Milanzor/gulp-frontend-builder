@@ -1,7 +1,6 @@
 const gulp = require('gulp');
 const config = require('../tools/config');
 const plugins = require('../tools/plugins');
-const sass = require('gulp-sass');
 const saneWatch = require('gulp-sane-watch');
 
 module.exports = (function() {
@@ -25,20 +24,20 @@ module.exports = (function() {
     };
 
     scss.process = function() {
-        const autoprefixer = require('gulp-autoprefixer');
         return gulp.src(config.get('scss.source'))
         .pipe(plugins.plumber())
         .pipe(plugins.using())
         .pipe(plugins.size({showFiles: true}))
-        .pipe(sass({outputStyle: config.get('scss.style', 'compressed')}))
-        .pipe(autoprefixer({
-            browsers: ['last 2 versions'],
+        .pipe(plugins.sass({outputStyle: config.get('scss.style', 'compressed')}))
+        .pipe(plugins.autoprefixer({
             cascade: false
         }))
         .pipe(plugins.rename(function(path) {
             path.extname = config.get('scss.file_ext', '.min.css');
         }))
-        .pipe(gulp.dest(config.get('scss.target'), {mode: config.get('scss.chmod'), dirMode: config.get('scss.directory-chmod')}));
+        .pipe(plugins.chmod(config.get('directory-chmod'), true))
+        .pipe(plugins.chmod(config.get('chmod')))
+        .pipe(gulp.dest(config.get('scss.target')));
     };
 
     // Gulp tasks

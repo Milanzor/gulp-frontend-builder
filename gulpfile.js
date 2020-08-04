@@ -3,10 +3,7 @@
  * Does everything you need for Frontend assets
  */
 
-    // Fetch gulp
 const gulp = require('gulp');
-
-// Fetch the modules
 require('./app/javascript');
 require('./app/scss');
 require('./app/fonts');

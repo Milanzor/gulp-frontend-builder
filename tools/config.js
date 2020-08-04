@@ -1,31 +1,34 @@
-var path = require('path');
+const path = require('path');
+let configLocation, config;
 
 try {
-    var configLocation = '../config.json';
-    var config = require(configLocation);
+    configLocation = '../config.json';
+    config = require(configLocation);
 } catch (e) {
+
     try {
-        var configLocation = '../../build.config.json';
-        var config = require(configLocation);
+        configLocation = '../../build.config.json';
+        config = require(configLocation);
     } catch (e) {
 
         try {
 
             // Get arguments
-            var argv = require('minimist')(process.argv.slice(2));
+            let argv = require('minimist')(process.argv.slice(2));
 
             // Config argument
-            var configLocation = path.resolve(argv.config);
-            // Make workingdirectory
-            var workingDirectory = path.dirname(configLocation);
+            configLocation = path.resolve(argv.config);
+
+            // Make workingDirectory
+            let workingDirectory = path.dirname(configLocation);
 
             // Load the config
-            var config = require(path.resolve(configLocation));
+            config = require(path.resolve(configLocation));
 
             process.chdir(workingDirectory);
 
             console.log('Using config file ' + argv.config);
-            console.log('Changes working directory to ' + workingDirectory  );
+            console.log('Changed working directory to ' + workingDirectory);
 
         } catch (e) {
             console.log('No valid config.json (or ../build.config.json) found, you can also pass the location of the config file through --config path/to/yourconfig.json');
@@ -35,11 +38,11 @@ try {
     }
 }
 
-var util = require('./util');
-var gulp = require('gulp');
-var saneWatch = require('gulp-sane-watch');
+const util = require('./util');
+const gulp = require('gulp');
+
 module.exports = (function() {
-    var self = {};
+    const self = {};
 
     self.get = function(path, def) {
         if (typeof path === 'undefined') {

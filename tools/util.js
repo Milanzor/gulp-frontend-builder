@@ -1,10 +1,14 @@
-module.exports = (function () {
-    var self = {};
+module.exports = (function() {
+    let self = {};
 
-    self.hashGet = function (obj, path, def) {
-        for (var i = 0, path = path.split('.'), len = path.length; i < len; i++) {
-            if (i in path && path[i] in obj) {
-                obj = obj[path[i]];
+    self.unixFilepermission = function(stat_mode) {
+        return '0' + (stat_mode & parseInt('777', 8)).toString(8);
+    };
+
+    self.hashGet = function(obj, path, def) {
+        for (let i = 0, hashPath = path.split('.'), len = hashPath.length; i < len; i++) {
+            if (i in hashPath && hashPath[i] in obj) {
+                obj = obj[hashPath[i]];
             } else {
                 return def;
             }
@@ -12,9 +16,9 @@ module.exports = (function () {
         return (typeof obj !== 'undefined') ? obj : def;
     };
 
-    self.hashSet = function (obj, path, val) {
-        for (var i = 0, path = path.split('.'), len = path.length; i < len; i++) {
-            obj = obj[path[i]];
+    self.hashSet = function(obj, path, val) {
+        for (let i = 0, hashPath = path.split('.'), len = hashPath.length; i < len; i++) {
+            obj = obj[hashPath[i]];
         }
         if (typeof obj !== 'undefined') {
             obj = val;
@@ -23,13 +27,12 @@ module.exports = (function () {
         return false;
     };
 
-
-    self.getVendorFiles = function (bowerPaths, manual_path, filter) {
+    self.getVendorFiles = function(bowerPaths, manual_path, filter) {
         filter = filter || '**/**';
-        var mainBowerFiles = require('main-bower-files');
-        var files = [];
+        let mainBowerFiles = require('main-bower-files');
+        let files = [];
         if (bowerPaths.length) {
-            bowerPaths.forEach(function (bower) {
+            bowerPaths.forEach(function(bower) {
                 files = files.concat(mainBowerFiles(filter, {
                     paths: bower
                 }));
