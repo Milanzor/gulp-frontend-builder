@@ -15,7 +15,7 @@ module.exports = {
     uglify: require('gulp-uglify'),
     babel: require('gulp-babel'),
     autoprefixer: require('gulp-autoprefixer'),
-    sass: require('gulp-sass'),
+    sass: require('gulp-sass')(require('sass')),
     debounce: (function() {
         let timer = 0;
         return function(callback, ms) {
